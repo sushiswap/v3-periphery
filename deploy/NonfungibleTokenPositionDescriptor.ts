@@ -38,10 +38,6 @@ const func: DeployFunction = async function ({
   })
 }
 
-// 0x4554480000000000000000000000000000000000000000000000000000000000
-// 0x46544d
-// 0x4554480000000000000000000000000000000000000000000000000000000000
-
 func.tags = ['NonfungibleTokenPositionDescriptor']
 
 func.dependencies = ['NFTDescriptor']
