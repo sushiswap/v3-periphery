@@ -4,8 +4,10 @@ import '@nomiclabs/hardhat-etherscan'
 import '@nomiclabs/hardhat-waffle'
 import '@nomiclabs/hardhat-ethers'
 import 'hardhat-deploy'
+import 'hardhat-deploy-ethers'
 import 'hardhat-typechain'
 import 'hardhat-watcher'
+import { task, types } from 'hardhat/config'
 
 const LOW_OPTIMIZER_COMPILER_SETTINGS = {
   version: '0.7.6',
@@ -53,6 +55,17 @@ const accounts = {
   mnemonic: process.env.MNEMONIC || 'test test test test test test test test test test test junk',
   accountsBalance: '990000000000000000000',
 }
+
+task('add-fee-tier', 'Add fee tier')
+  .addParam('fee', 'Fee', 100, types.int)
+  .addParam('tickSpacing', 'Tick Spacing', 1, types.int)
+  .setAction(async (taskArgs, hre) => {
+    const { fee, tickSpacing } = taskArgs
+    const { getNamedAccounts, ethers, deployments } = hre
+    const factory = await ethers.getContract('UniswapV3Factory')
+    await factory.enableFeeAmount(fee, tickSpacing)
+    console.log('Enabled fee amount')
+  })
 
 export default {
   networks: {
@@ -167,7 +180,6 @@ export default {
       live: true,
       saveDeployments: true,
     },
-
     boba: {
       url: 'https://mainnet.boba.network',
       accounts,
