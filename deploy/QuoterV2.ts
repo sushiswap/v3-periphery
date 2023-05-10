@@ -1,9 +1,9 @@
-import { ethers } from 'ethers';
+import { ethers } from 'ethers'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 import { DeployFunction } from 'hardhat-deploy/dist/types'
 
-const func: DeployFunction = async function(hre: HardhatRuntimeEnviorment) {
-  const {deployments, getNamedAccounts, getChainId } = hre
+const func: DeployFunction = async function (hre: HardhatRuntimeEnviorment) {
+  const { deployments, getNamedAccounts, getChainId } = hre
   const { deploy } = deployments
 
   const { deployer } = await getNamedAccounts()
@@ -17,7 +17,7 @@ const func: DeployFunction = async function(hre: HardhatRuntimeEnviorment) {
     throw Error(`No FACTORY_ADDRESS for chain #${chainId}!`)
   }
 
-  const quoterV2Artifact = await hre.artifacts.readArtifact('QuoterV2');
+  const quoterV2Artifact = await hre.artifacts.readArtifact('QuoterV2')
 
   await deploy('QuoterV2', {
     from: deployer,
