@@ -45,3 +45,11 @@ contract MyContract {
 }
 
 ```
+
+## Deploy
+
+To deploy QuoterV2:
+
+```
+pnpm exec hardhat --network arbitrum deploy --tags QuoterV2
+```
