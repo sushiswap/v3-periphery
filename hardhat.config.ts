@@ -222,6 +222,13 @@ export default {
       live: true,
       saveDeployments: true,
     },
+    filecoin: {
+      url: 'https://rpc.ankr.com/filecoin',
+      accounts,
+      chainId: 314,
+      live: true,
+      saveDeployments: true,
+    },
     // ropsten: {
     //   url: `https://ropsten.infura.io/v3/${process.env.INFURA_API_KEY}`,
     // },
