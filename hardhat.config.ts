@@ -51,7 +51,7 @@ const DEFAULT_COMPILER_SETTINGS = {
   },
 }
 
-const accounts = {
+const accounts = process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : {
   mnemonic: process.env.MNEMONIC || 'test test test test test test test test test test test junk',
   accountsBalance: '990000000000000000000',
 }
