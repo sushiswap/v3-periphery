@@ -53,3 +53,11 @@ To deploy QuoterV2:
 ```
 pnpm exec hardhat --network arbitrum deploy --tags QuoterV2
 ```
+
+## Verify
+
+To verify QuoterV2:
+
+```
+pnpm exec hardhat verify --constructor-args arguments.js <contract_address>
+```
