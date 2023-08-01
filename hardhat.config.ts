@@ -51,10 +51,12 @@ const DEFAULT_COMPILER_SETTINGS = {
   },
 }
 
-const accounts = process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : {
-  mnemonic: process.env.MNEMONIC || 'test test test test test test test test test test test junk',
-  accountsBalance: '990000000000000000000',
-}
+const accounts = process.env.PRIVATE_KEY
+  ? [process.env.PRIVATE_KEY]
+  : {
+      mnemonic: process.env.MNEMONIC || 'test test test test test test test test test test test junk',
+      accountsBalance: '990000000000000000000',
+    }
 
 task('add-fee-tier', 'Add fee tier')
   .addParam('fee', 'Fee', 100, types.int)
@@ -226,6 +228,27 @@ export default {
       url: 'https://rpc.ankr.com/filecoin',
       accounts,
       chainId: 314,
+      live: true,
+      saveDeployments: true,
+    },
+    // linea: {
+    //   url: '',
+    //   accounts,
+    //   chainId: ,
+    //   live: true,
+    //   saveDeployments: true,
+    // },
+    haqq: {
+      url: 'https://rpc.eth.haqq.network',
+      accounts,
+      chainId: 11235,
+      live: true,
+      saveDeployments: true,
+    },
+    core: {
+      url: 'https://rpc.coredao.org',
+      accounts,
+      chainId: 1116,
       live: true,
       saveDeployments: true,
     },
