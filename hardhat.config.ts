@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import '@nomiclabs/hardhat-ethers'
-import '@nomiclabs/hardhat-etherscan'
+import '@nomicfoundation/hardhat-verify'
 import '@nomiclabs/hardhat-waffle'
 import '@nomiclabs/hardhat-ethers'
 import 'hardhat-deploy'
@@ -71,6 +71,20 @@ task('add-fee-tier', 'Add fee tier')
 
 export default {
   networks: {
+    blast: {
+      url: 'https://rpc.blast.io',
+      accounts,
+      chainId: 81457,
+      live: true,
+      saveDeployments: true
+    },
+    telos: {
+      url: 'https://mainnet.telos.net/evm',
+      accounts,
+      chainId: 40,
+      live: true,
+      saveDeployments: true,
+    },
     arbitrum: {
       url: 'https://arb1.arbitrum.io/rpc',
       accounts,
@@ -327,73 +341,79 @@ export default {
     },
   },
   etherscan: {
-    apiKey: 'ZVIUC4QGHCJWGZ51YU4XIM1PR9KQ4YTW5Z',
+    customChains: [
+      {
+        network: 'blast',
+        chainId: 81457,
+        urls: {
+          apiURL: 'https://api.blastscan.io/api',
+          browserURL: 'https://blastscan.io',
+        },
+      },
+      {
+        network: 'kava',
+        chainId: 2222,
+        urls: {
+          apiURL: 'https://explorer.kava.io/api',
+          browserURL: 'https://explorer.kava.io',
+        },
+      },
+      {
+        network: 'metis',
+        chainId: 1088,
+        urls: {
+          apiURL: 'https://andromeda-explorer.metis.io/api',
+          browserURL: 'https://andromeda-explorer.metis.io',
+        },
+      },
+    ],
+    apiKey: {
+      mainnet: process.env.ETHERSCAN_API_KEY || '',
+      ropsten: process.env.ETHERSCAN_API_KEY || '',
+      rinkeby: process.env.ETHERSCAN_API_KEY || '',
+      goerli: process.env.ETHERSCAN_API_KEY || '',
+      kovan: process.env.ETHERSCAN_API_KEY || '',
+      // binance smart chain
+      bsc: process.env.BSCSCAN_API_KEY || '',
+      bscTestnet: process.env.BSCSCAN_API_KEY || '',
+      // huobi eco chain
+      heco: process.env.HECOINFO_API_KEY || '',
+      hecoTestnet: process.env.HECOINFO_API_KEY || '',
+      // fantom mainnet
+      opera: process.env.FTMSCAN_API_KEY || '',
+      ftmTestnet: process.env.FTMSCAN_API_KEY || '',
+      // optimism
+      optimisticEthereum: process.env.OPTIMISTIC_ETHERSCAN_API_KEY || '',
+      optimisticKovan: process.env.OPTIMISTIC_ETHERSCAN_API_KEY || '',
+      // polygon
+      polygon: process.env.POLYGONSCAN_API_KEY || '',
+      polygonMumbai: process.env.POLYGONSCAN_API_KEY || '',
+      // arbitrum
+      arbitrumOne: process.env.ARBISCAN_API_KEY || '',
+      arbitrumTestnet: process.env.ARBISCAN_API_KEY || '',
+      // avalanche
+      avalanche: process.env.SNOWTRACE_API_KEY || '',
+      avalancheFujiTestnet: process.env.SNOWTRACE_API_KEY || '',
+      // moonbeam
+      moonbeam: process.env.MOONBEAM_MOONSCAN_API_KEY || '',
+      moonriver: process.env.MOONRIVER_MOONSCAN_API_KEY || '',
+      moonbaseAlpha: process.env.MOONBASE_MOONSCAN_API_KEY || '',
+      // harmony
+      harmony: process.env.HARMONY_API_KEY || '',
+      harmonyTest: process.env.HARMONY_API_KEY || '',
+      // xdai and sokol don't need an API key, but you still need
+      // to specify one; any string placeholder will work
+      xdai: 'api-key',
+      sokol: 'api-key',
+      aurora: 'api-key',
+      auroraTestnet: 'api-key',
+      metis: 'api-key',
+      // bobaAvax: 'api-key',
+      bttc: process.env.BTTC_API_KEY || '',
+      gnosis: process.env.GNOSIS_API_KEY || '',
+      blast: process.env.BLAST_API_KEY || '',
+    },
   },
-  // etherscan: {
-  //   customChains: [
-  //     {
-  //       network: 'kava',
-  //       chainId: 2222,
-  //       urls: {
-  //         apiURL: 'https://explorer.kava.io/api',
-  //         browserURL: 'https://explorer.kava.io',
-  //       },
-  //     },
-  //     {
-  //       network: 'metis',
-  //       chainId: 1088,
-  //       urls: {
-  //         apiURL: 'https://andromeda-explorer.metis.io/api',
-  //         browserURL: 'https://andromeda-explorer.metis.io',
-  //       },
-  //     },
-  //   ],
-  //   apiKey: {
-  //     mainnet: process.env.ETHERSCAN_API_KEY || '',
-  //     ropsten: process.env.ETHERSCAN_API_KEY || '',
-  //     rinkeby: process.env.ETHERSCAN_API_KEY || '',
-  //     goerli: process.env.ETHERSCAN_API_KEY || '',
-  //     kovan: process.env.ETHERSCAN_API_KEY || '',
-  //     // binance smart chain
-  //     bsc: process.env.BSCSCAN_API_KEY || '',
-  //     bscTestnet: process.env.BSCSCAN_API_KEY || '',
-  //     // huobi eco chain
-  //     heco: process.env.HECOINFO_API_KEY || '',
-  //     hecoTestnet: process.env.HECOINFO_API_KEY || '',
-  //     // fantom mainnet
-  //     opera: process.env.FTMSCAN_API_KEY || '',
-  //     ftmTestnet: process.env.FTMSCAN_API_KEY || '',
-  //     // optimism
-  //     optimisticEthereum: process.env.OPTIMISTIC_ETHERSCAN_API_KEY || '',
-  //     optimisticKovan: process.env.OPTIMISTIC_ETHERSCAN_API_KEY || '',
-  //     // polygon
-  //     polygon: process.env.POLYGONSCAN_API_KEY || '',
-  //     polygonMumbai: process.env.POLYGONSCAN_API_KEY || '',
-  //     // arbitrum
-  //     arbitrumOne: process.env.ARBISCAN_API_KEY || '',
-  //     arbitrumTestnet: process.env.ARBISCAN_API_KEY || '',
-  //     // avalanche
-  //     avalanche: process.env.SNOWTRACE_API_KEY || '',
-  //     avalancheFujiTestnet: process.env.SNOWTRACE_API_KEY || '',
-  //     // moonbeam
-  //     moonbeam: process.env.MOONBEAM_MOONSCAN_API_KEY || '',
-  //     moonriver: process.env.MOONRIVER_MOONSCAN_API_KEY || '',
-  //     moonbaseAlpha: process.env.MOONBASE_MOONSCAN_API_KEY || '',
-  //     // harmony
-  //     harmony: process.env.HARMONY_API_KEY || '',
-  //     harmonyTest: process.env.HARMONY_API_KEY || '',
-  //     // xdai and sokol don't need an API key, but you still need
-  //     // to specify one; any string placeholder will work
-  //     xdai: 'api-key',
-  //     sokol: 'api-key',
-  //     aurora: 'api-key',
-  //     auroraTestnet: 'api-key',
-  //     metis: 'api-key',
-  //     // bobaAvax: 'api-key',
-  //     bttc: process.env.BTTC_API_KEY || '',
-  //     gnosis: process.env.GNOSIS_API_KEY || '',
-  //   },
-  // },
   solidity: {
     compilers: [DEFAULT_COMPILER_SETTINGS],
     overrides: {
