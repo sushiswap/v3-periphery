@@ -67,5 +67,10 @@
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@uniswap/v3-core@1.0.0": "patches/@uniswap__v3-core@1.0.0.patch"
+    }
   }
 }
